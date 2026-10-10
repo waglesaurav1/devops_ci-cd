@@ -56,5 +56,14 @@ pipeline {
                 bat 'docker build -t devops-cicd-app:1.0 .'
             }
         }
+
+        stage('Deploy Application') {
+            steps {
+                bat '''
+                docker rm -f devops-cicd-deployed 2>NUL
+                docker run -d --name devops-cicd-deployed -p 3001:3000 devops-cicd-app:1.0
+                '''
+            }
+        }
     }
 }
