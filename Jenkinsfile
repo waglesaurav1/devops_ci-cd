@@ -2,9 +2,7 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS'
-    }
+   
 
     environment {
         SONAR_HOST_URL = 'http://localhost:9000'
@@ -16,6 +14,14 @@ pipeline {
                 checkout scm
             }
         }
+    
+        stage('Check Node.js') {
+    steps {
+        bat 'where node'
+        bat 'node --version'
+        bat 'npm --version'
+    }
+}
 
         stage('Install Dependencies') {
             steps {
